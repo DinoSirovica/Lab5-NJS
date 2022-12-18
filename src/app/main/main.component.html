@@ -1,0 +1,42 @@
+<div class="container align-content-center ">
+  <div class="container" *ngIf="!isEditing">
+    <div class="container color" >
+      <h3>Posts ({{listOfPosts.length}}):</h3>
+      <div *ngFor='let post of listOfPosts; let i'>
+        <p> by {{post.username}} at {{post.date.toString()}}</p>
+        <textarea class="form-control" rows="4" cols="50" [disabled]="post.isEditing == false" [(ngModel)]="post.comment">{{post.comment}}</textarea>
+        <button class="btn btn-danger" (click)="deletePost(post.id)"><i class="bi bi-trash"></i> Delete</button>
+        <button class="btn btn-warning" (click)="isEditing=!isEditing; editPost(post.id, isEditing)" *ngIf="!isEditing"><i class="bi bi-pencil-square"></i> Edit</button>
+        <br>
+      </div>
+    </div>
+
+    <div class="p5 mt-3">
+      <button class="btn btn-primary" (click)="addComment=!addComment" *ngIf="!addComment">New Post</button>
+      <button class="btn btn-danger" (click)="addComment=!addComment" *ngIf="addComment">Cancel</button>
+      <div class="container-md-6">
+        <div class="container-md-6" *ngIf="addComment">
+          <label for="username">Username:</label><br>
+          <input id="username" type="text" [(ngModel)]="username"><br>
+          <label for="comment">Comment</label><br>
+          <textarea id="comment" rows="4" cols="50" [(ngModel)]="comment"></textarea><br>
+          <button class="btn btn-primary" [disabled]="comment.length==0 || username.length==0" (click)="addPost()"
+                  [ngClass]="(comment.length==0) ? 'btn btn-danger' : 'btn btn-success'">Post</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container" *ngIf="isEditing">
+    <div class="container" style="background-color: #e0e0e0" >
+      <h3>Posts ({{listOfPosts.length}}):</h3>
+      <div *ngFor='let post of listOfPosts; let i'>
+        <div *ngIf="post.id == idToEdit">
+          <p> by {{post.username}} at {{post.date.toString()}}</p>
+          <textarea class="form-control" rows="4" cols="50" [disabled]="post.isEditing == false" [(ngModel)]="post.comment">{{post.comment}}</textarea>
+          <button class="btn btn-warning" (click)="isEditing=!isEditing; editPost(post.id, isEditing)"><i class="bi bi-save"></i> Save changes</button>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
