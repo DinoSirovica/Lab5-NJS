@@ -6,18 +6,21 @@ import {FormsModule} from "@angular/forms";
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { AppRoutingModuleModule } from './app-routing-module.module';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     MainComponent,
-    RegistrationComponent
+    RegistrationComponent,
   ],
-    imports: [
-        BrowserModule,
-        FormsModule
-    ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    AppRoutingModuleModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
