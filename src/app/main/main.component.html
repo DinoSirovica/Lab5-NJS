@@ -3,7 +3,7 @@
     <div class="container color" >
       <h3>Posts ({{listOfPosts.length}}):</h3>
       <div *ngFor='let post of listOfPosts; let i'>
-        <p> by {{post.username}} at {{post.date.toString()}}</p>
+        <p> by {{post.userId}} at {{post.date.toString()}}</p>
         <textarea class="form-control" rows="4" cols="50" [disabled]="post.isEditing == false" [(ngModel)]="post.comment">{{post.comment}}</textarea>
         <button class="btn btn-danger" (click)="deletePost(post.id)"><i class="bi bi-trash"></i> Delete</button>
         <button class="btn btn-warning" (click)="isEditing=!isEditing; editPost(post.id, isEditing)" *ngIf="!isEditing"><i class="bi bi-pencil-square"></i> Edit</button>
@@ -31,7 +31,7 @@
       <h3>Posts ({{listOfPosts.length}}):</h3>
       <div *ngFor='let post of listOfPosts; let i'>
         <div *ngIf="post.id == idToEdit">
-          <p> by {{post.username}} at {{post.date.toString()}}</p>
+          <p> by {{post.userId}} at {{post.date}}</p>
           <textarea class="form-control" rows="4" cols="50" [disabled]="post.isEditing == false" [(ngModel)]="post.comment">{{post.comment}}</textarea>
           <button class="btn btn-warning" (click)="isEditing=!isEditing; editPost(post.id, isEditing)"><i class="bi bi-save"></i> Save changes</button>
           <br>
