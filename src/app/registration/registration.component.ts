@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import {User} from "../user";
 import {UserServiceService} from "../services/user-service.service";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AuthService} from "../services/auth.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-registration',
@@ -9,42 +12,53 @@ import {UserServiceService} from "../services/user-service.service";
 })
 export class RegistrationComponent {
 
-  constructor(private userService: UserServiceService) {
-    this.init()
+  constructor(private userService: UserServiceService, private fb: FormBuilder, private auth: AuthService) {
   }
   listOfUsers : User[] = [];
-  init() {
+  authenticated=false;
+  authChangeSubscription : Subscription | null = null;
+  errorMasage : string = '';
+  successMassage : string = '';
+  user: User | undefined;
+
+  regForm : FormGroup =this.fb.group({
+    "username": new FormControl('', [Validators.required, Validators.minLength(4)]),
+    "pass": new FormControl('', [Validators.required]),
+    "passR": new FormControl('', [Validators.required]),
+    "email": new FormControl('', [Validators.required, Validators.email]),
+    "name": new FormControl('', [Validators.required])
+  }, {updateOn: 'blur'})
+
+  ngOnInit() {
     this.listOfUsers = this.userService.getUserList()
+
+    this.auth.errorMasage
+      .subscribe((error : string) => {
+        this.errorMasage = error;
+      });
+
+    this.auth.successMassage
+      .subscribe((success : string) => {
+        this.successMassage = success;
+      });
+
+    this.authenticated=this.auth.isAuthenticated();
+
+    this.authChangeSubscription=this.auth.authChange
+      .subscribe(() => {
+        this.authenticated=this.auth.isAuthenticated();
+      });
   }
 
-  name: string = "";
-  username: string = "";
-  email: string = "";
-  pass: string = "";
-  passR: string = "";
-  newUser: User = new User("","","","");
 
   makeNewUser() {
-    if(this.name == "" || this.email== "" || this.pass == "" || this.passR == "" || this.username == "") {
-      alert("Please fill out all fields!");
-    }
-    else if(this.pass != this.passR){
-      alert("Passwords don't match!");
-    }
-    else if(this.listOfUsers.find(user => user.username == this.username) != null) {
-      alert("Username already exists!");
-    }
-    else if(this.listOfUsers.find(user => user.email == this.email) != null) {
-      alert("Email already exists!");
+    if (this.regForm.valid) {
+        let temp = this.regForm.value;
+        this.auth.register(temp.username, temp.pass, temp.passR, temp.email, temp.name);
     }
     else {
-      this.newUser.name = this.name;
-      this.newUser.email = this.email;
-      this.newUser.password = this.pass;
-      this.newUser.username = this.username;
-      this.userService.newUser(this.newUser);
+      this.errorMasage = 'Please make sure all fields are filled in correctly';
     }
-    console.log(this.listOfUsers)
   }
 
 

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {PostClass} from "../post-class";
 import {PostServiceService} from "../services/post-service.service";
+import {AuthService} from "../services/auth.service";
+import {User} from "../user";
 
 @Component({
   selector: 'app-main',
@@ -9,13 +11,19 @@ import {PostServiceService} from "../services/post-service.service";
 })
 export class MainComponent {
 
-  constructor(private postService: PostServiceService) {
+  constructor(private postService: PostServiceService,public auth: AuthService) {
     this.init()
   }
+  user:User | undefined;
   listOfPosts : PostClass[] = [];
+  isLogged: boolean = false;
   init() {
     this.listOfPosts = this.postService.getPostList()
-    console.log(this.listOfPosts);
+    this.user = this.auth.getUser()
+    if(this.user.username) {
+      this.isLogged = true
+    }
+    else this.isLogged = false
   }
 
 
@@ -35,15 +43,13 @@ export class MainComponent {
   addPost() {
     console.log(this.username)
     console.log(this.comment)
-    this.new.userId = this.username
+    this.new.userId = this.user?.username || ""
     this.new.comment = this.comment
     this.new.timestamp = new Date().toString()
     console.log(this.new)
     this.postService.newPost(this.new)
-
     this.addComment = false
     this.comment = ""
-    this.username = ""
   }
 
   editPost(id:number, isEditing:boolean) {
@@ -68,5 +74,6 @@ export class MainComponent {
     this.postService.deletePost(this.listOfPosts[id])
     this.listOfPosts.splice(id, 1)
   }
+
 
 }

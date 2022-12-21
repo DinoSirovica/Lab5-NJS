@@ -21,3 +21,19 @@ div > *{
   margin: 0 auto;
   width: 30%;
 }
+
+.errorBox {
+  background-color: rgba(250, 92, 92, 0.47);
+  border: 2px solid rgba(253, 72, 72, 0.86);
+  color: white;
+  align-content: center;
+  text-decoration: underline;
+}
+
+.successBox{
+  background-color: rgba(132, 232, 132, 0.47);
+  border: 2px solid rgba(120, 182, 120, 0.86);
+  color: white;
+  align-content: center;
+  text-decoration: underline;
+}

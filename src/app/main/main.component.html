@@ -1,23 +1,31 @@
 <div class="container align-content-center ">
   <div class="container" *ngIf="!this.isEditing">
     <div class="container color" >
+      <div *ngIf="user && isLogged">
+        Welcome<a [routerLink]="['/register']" >{{user.username}}</a>({{user.email}}) <br>
+        <button class="btn btn-danger" (click)="this.auth.logout()" *ngIf="isLogged">Logout</button>
+      </div>
       <h3>Posts ({{listOfPosts.length}}):</h3>
       <div *ngFor='let post of listOfPosts; index as i'>
         <p> by {{post.userId}} at {{post.timestamp}}</p>
         <textarea class="form-control" rows="4" cols="50" [disabled]="isEditing == false" [(ngModel)]="post.comment">{{post.comment}}</textarea>
-        <button class="btn btn-danger" (click)="deletePost(i)"><i class="bi bi-trash"></i> Delete</button>
-        <button class="btn btn-warning" (click)="this.isEditing=!this.isEditing; editPost(i, this.isEditing);" *ngIf="!isEditing"><i class="bi bi-pencil-square"></i> Edit</button>
-        <br>
+        <div *ngIf="user && isLogged">
+          <div *ngIf=" post.userId == user.username">
+            <button class="btn btn-danger" (click)="deletePost(i)"><i class="bi bi-trash"></i> Delete</button>
+            <button class="btn btn-warning" (click)="this.isEditing=!this.isEditing; editPost(i, this.isEditing);" *ngIf="!isEditing"><i class="bi bi-pencil-square"></i> Edit</button>
+          </div>
+
+        </div><br>
       </div>
     </div>
 
-    <div class="p5 mt-3">
+    <div class="p5 mt-3" *ngIf="user && isLogged">
       <button class="btn btn-primary" (click)="addComment=!addComment" *ngIf="!addComment">New Post</button>
       <button class="btn btn-danger" (click)="addComment=!addComment" *ngIf="addComment">Cancel</button>
       <div class="container-md-6">
         <div class="container-md-6" *ngIf="addComment">
-          <label for="username">Username:</label><br>
-          <input id="username" type="text" [(ngModel)]="this.username"><br>
+          <label for="username" >Username:</label><br>
+          <input id="username" type="text" [disabled]="true" [(ngModel)]="this.user.username"><br>
           <label for="comment">Comment</label><br>
           <textarea id="comment" rows="4" cols="50" [(ngModel)]="this.comment"></textarea><br>
           <button class="btn btn-primary" [disabled]="this.comment.length==0" (click)="addPost()"
