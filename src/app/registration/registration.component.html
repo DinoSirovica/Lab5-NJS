@@ -4,16 +4,16 @@
       <div class="center">
       <h2>Register form:</h2>
       <label for="username">Username:</label><br>
-      <input class="input-box" id="username" type="text"><br>
+      <input class="input-box" id="username" type="text" [(ngModel)]="this.username"><br>
       <label for="pass">Password:</label><br>
-      <input class="input-box" type="password" id="pass"><br>
+      <input class="input-box" type="password" id="pass" [(ngModel)]="this.pass"><br>
       <label for="passR">Repeat password:</label><br>
-      <input class="input-box" type="password" id="passR"><br>
+      <input class="input-box" type="password" id="passR" [(ngModel)]="this.passR"><br>
       <label for="name">Name:</label><br>
-      <input class="input-box" id="name" type="text"><br>
+      <input class="input-box" id="name" type="text" [(ngModel)]="this.name"><br>
       <label for="email">E-mail:</label><br>
-      <input class="input-box" id="email" type="email">
-        <button class="btn btn-success" id="register">Register</button><br>
+      <input class="input-box" id="email" type="email" [(ngModel)]="this.email">
+        <button class="btn btn-success" id="register" (click)="makeNewUser()">Register</button><br>
       <a [routerLink]="['/login']">Already have an account?</a>
       </div>
     </div>

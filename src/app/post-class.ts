@@ -1,15 +1,13 @@
 export class PostClass {
   comment: string;
   userId: string;
-  id:string;
-  date: string;
-  isEditing: boolean;
+  id?:string;
+  timestamp: string;
 
-  constructor(comment: string, userId: string, id: string, date: string, isEditing: boolean) {
+  constructor(comment: string, userId: string, timestamp: string, id?: string) {
     this.comment = comment;
     this.userId = userId;
     this.id = id;
-    this.date = date;
-    this.isEditing = isEditing;
+    this.timestamp = timestamp;
   }
 }

@@ -4,10 +4,10 @@
       <div class="center">
       <h2>Login:</h2>
       <label for="username">Username:</label><br>
-      <input class="input-box" id="username" type="text"><br>
+      <input class="input-box" id="username" type="text" [(ngModel)]="this.username"><br>
       <label for="pass">Password:</label><br>
-      <input class="input-box" type="password" id="pass"><br>
-      <button class="btn btn-success">Login</button>
+      <input class="input-box" type="password" id="pass" [(ngModel)]="this.password"><br>
+      <button class="btn btn-success" (click)="LogIn() ">Login</button>
       <button class="btn btn-warning" [routerLink]="['/register']">Register</button>
       </div>
     </div>
