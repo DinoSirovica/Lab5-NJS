@@ -1,0 +1,44 @@
+{
+  "posts": {
+    "-NJquKKfCsFNKOBbhGa2": {
+      "comment": "Testni komentar!",
+      "timestamp": "Wed Dec 21 2022 23:58:59 GMT+0100 (Central European Standard Time)",
+      "userId": "root"
+    },
+    "-NJvxDzJJJtzkHUomdMV": {
+      "comment": "root2 comment",
+      "timestamp": "Thu Dec 22 2022 23:29:46 GMT+0100 (Central European Standard Time)",
+      "userId": "root2"
+    },
+    "-NJvxRIsuGfwnR4XQLvF": {
+      "comment": "Komentar 2 or root-a!",
+      "timestamp": "Thu Dec 22 2022 23:30:40 GMT+0100 (Central European Standard Time)",
+      "userId": "root"
+    },
+    "-NJvz8CNuKQB-rEh6AoZ": {
+      "comment": "Ovo je prvi komentar s ovoga računa.",
+      "timestamp": "Thu Dec 22 2022 23:38:06 GMT+0100 (Central European Standard Time)",
+      "userId": "Dino123"
+    }
+  },
+  "users": {
+    "1": {
+      "email": "root@tvz.hr",
+      "name": "root",
+      "password": "root",
+      "username": "root"
+    },
+    "-NJr1eDX1BArINWI9Gz4": {
+      "email": "root2",
+      "name": "root2@tvz.hr",
+      "password": "root",
+      "username": "root2"
+    },
+    "-NJvz0dpvLxGGaV4kDF7": {
+      "email": "Dino Sirovica",
+      "name": "dsirovica@tvz.hr",
+      "password": "1234",
+      "username": "Dino123"
+    }
+  }
+}

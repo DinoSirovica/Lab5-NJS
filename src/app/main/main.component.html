@@ -2,7 +2,7 @@
   <div class="container" *ngIf="!this.isEditing">
     <div class="container color" >
       <div *ngIf="user && isLogged">
-        Welcome<a [routerLink]="['/register']" >{{user.username}}</a>({{user.email}}) <br>
+        Welcome<a href="/profile" >{{user.username}}</a>({{user.email}}) <br>
         <button class="btn btn-danger" (click)="this.auth.logout()" *ngIf="isLogged">Logout</button>
       </div>
       <h3>Posts ({{listOfPosts.length}}):</h3>

@@ -8,6 +8,7 @@ import { MainComponent } from './main/main.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { AppRoutingModuleModule } from './app-routing-module.module';
 import {HttpClientModule} from "@angular/common/http";
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import {HttpClientModule} from "@angular/common/http";
     LoginComponent,
     MainComponent,
     RegistrationComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

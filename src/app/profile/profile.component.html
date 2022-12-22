@@ -1,0 +1,28 @@
+<div class="container align-content-center ">
+  <div class="container" *ngIf="!this.isEditing">
+    <div class="row justify-content-center">
+      <div class="container color col-8" >
+        <div *ngIf="user && isLogged">
+          <p>Posts by {{user.name}} ({{listOfPosts.length}})</p>
+        <div *ngFor='let post of listOfPosts; index as i'>
+          <div *ngIf="post.userId == user.username">
+            <p> by {{post.userId}} at {{post.timestamp}}</p>
+            <textarea class="form-control" rows="4" cols="50" [disabled]="isEditing == false" [(ngModel)]="post.comment">{{post.comment}}</textarea>
+          </div>
+        </div>
+      </div>
+      <a href="/">Back</a>
+    </div>
+      <div class="container color col-4" >
+        <div class="flex align-items-center" *ngIf="user && isLogged" >
+          User data:<br><br>
+
+          Username: {{user.username}}<br>
+          Email: {{user.email}}<br>
+          Name: {{user.name}}<br>
+        </div>
+      </div>
+      </div>
+
+  </div>
+</div>

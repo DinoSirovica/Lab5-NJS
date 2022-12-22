@@ -1,37 +1,28 @@
 import { Component } from '@angular/core';
-import {PostClass} from "../post-class";
 import {PostServiceService} from "../services/post-service.service";
 import {AuthService} from "../services/auth.service";
 import {User} from "../user";
-import {Router} from "@angular/router";
+import {PostClass} from "../post-class";
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
 })
-export class MainComponent {
+export class ProfileComponent {
 
-  constructor(private postService: PostServiceService,public auth: AuthService, private router: Router) {
-    this.init()
+  constructor(private postService: PostServiceService,public auth: AuthService) {
   }
   user:User | undefined;
   listOfPosts : PostClass[] = [];
   isLogged: boolean = false;
-
-  init() {
+  ngOnInit() {
     this.listOfPosts = this.postService.getPostList()
     this.user = this.auth.getUser()
     if(this.user.username) {
       this.isLogged = true
     }
     else this.isLogged = false
-
-    if(!this.user || !this.isLogged){
-      this.router.navigate(['/login']).then(() => {
-        window.location.reload();
-      })
-    }
   }
 
 
@@ -41,6 +32,8 @@ export class MainComponent {
   id="";
   isEditing = false
   idToEdit = 0
+
+
 
   new: PostClass = {
     userId: "",
@@ -56,10 +49,8 @@ export class MainComponent {
     this.new.timestamp = new Date().toString()
     console.log(this.new)
     this.postService.newPost(this.new)
-    this.auth.endOfFunc()
     this.addComment = false
     this.comment = ""
-
   }
 
   editPost(id:number, isEditing:boolean) {
@@ -73,7 +64,6 @@ export class MainComponent {
 
   saveChanges(id:number) {
     this.postService.editPost(this.listOfPosts[id])
-    this.auth.endOfFunc()
     this.idToEdit = 0
   }
 
@@ -84,7 +74,6 @@ export class MainComponent {
   deletePost(id:number) {
     this.postService.deletePost(this.listOfPosts[id])
     this.listOfPosts.splice(id, 1)
-    this.auth.endOfFunc()
   }
 
 

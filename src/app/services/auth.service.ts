@@ -20,9 +20,7 @@ export class AuthService {
     this.user=null;
     localStorage.removeItem('user');
     this.authChange.next(false);
-    this.router.navigate(['/login']).then(() => {
-      window.location.reload();
-    })
+    this.router.navigate(['/login'])
   }
 
   login(credentials : {username : string, password: string}){
@@ -40,7 +38,11 @@ export class AuthService {
         this.user = user;
         localStorage.setItem('user', JSON.stringify(this.user));
         this.authChange.next(true);
-        this.router.navigate(['/']);
+        this.router.navigate(['/']).then(
+          () => {
+            window.location.reload();
+          }
+        );
       } else {
         this.errorMasage.next('Invalid username or password');
       }
@@ -79,6 +81,11 @@ export class AuthService {
         this.router.navigate(['/login']);
       }
     }
+  }
+
+  endOfFunc = () => {
+    setTimeout(() => {window.location.reload()},500)
+
   }
 
 }
