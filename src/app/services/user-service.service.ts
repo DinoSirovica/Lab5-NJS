@@ -41,26 +41,10 @@ export class UserServiceService {
     return this.users;
   }
 
-  //todo provjera postoji li user
   public newUser(newUser: User) {
     this.http.post('https://njs-lab5-default-rtdb.europe-west1.firebasedatabase.app/users.json', newUser)
       .subscribe(() => {
         this.users.push(newUser)
       })
   }
-
-  //todo izbrisati ako je nepotrebno
-  /*public editUser(user: User) {
-    this.http.put('https://njs-lab5-default-rtdb.europe-west1.firebasedatabase.app/users' + user.id + '.json', user)
-      .subscribe((data: any) => {
-        console.log(data)
-      })
-  }
-  public deleteUser(user: User) {
-    this.http.delete('https://njs-lab5-default-rtdb.europe-west1.firebasedatabase.app/users' + user.id + '.json').subscribe(
-      (data: any) => {
-        console.log(data);
-      }
-    )
-  }*/
 }
